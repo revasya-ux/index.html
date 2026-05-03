@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Warung Enak 🍜</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    /* ===========================
+       CSS = Tampilan & Warna 🎨
+    =========================== */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: #fff8f0;
+      color: #2d2d2d;
+    }
+
+    /* --- HEADER --- */
+    header {
+      background: #ff6b35;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 12px rgba(255,107,53,0.3);
+    }
+
+    .logo {
+      font-family: 'Fredoka One', cursive;
+      font-size: 2rem;
+      color: white;
+      letter-spacing: 1px;
+    }
+
+    .keranjang-btn {
+      background: white;
+      color: #ff6b35;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .keranjang-btn:hover {
+      transform: scale(1.07);
+    }
+
+    /* --- HERO BANNER --- */
+    .hero {
+      background: linear-gradient(135deg, #ff6b35, #f7c59f);
+      text-align: center;
+      padding: 60px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "🍔🍕🍜🍣🧁";
+      font-size: 4rem;
+      position: absolute;
+      top: -10px;
+      left: -20px;
+      opacity: 0.15;
+      letter-spacing: 10px;
+    }
+
+    .hero h1 {
+      font-family: 'Fredoka One', cursive;
+      font-size: 3rem;
+      color: white;
+      text-shadow: 0 3px 8px rgba(0,0,0,0.2);
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.9);
+      font-weight: 600;
+    }
+
+    /* --- KATEGORI --- */
+    .kategori {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      padding: 30px 20px 10px;
+      flex-wrap: wrap;
+    }
+
+    .kat-btn {
+      background: white;
+      border: 2px solid #e0d6cc;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: #666;
+    }
+
+    .kat-btn:hover, .kat-btn.aktif {
+      background: #ff6b35;
+      color: white;
+      border-color: #ff6b35;
+      transform: translateY(-2px);
+    }
+
+    /* --- GRID MENU --- */
+    .judul-section {
+      text-align: center;
+      padding: 24px 20px 8px;
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.8rem;
+      color: #ff6b35;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 24px;
+      padding: 20px 40px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* --- KARTU MAKANAN --- */
+    .kartu {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      transition: transform 0.25s, box-shadow 0.25s;
+      cursor: pointer;
+    }
+
+    .kartu:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 28px rgba(255,107,53,0.18);
+    }
+
+    .kartu-gambar {
+      font-size: 4.5rem;
+      text-align: center;
+      padding: 28px 0 16px;
+      background: #fff3ec;
+      line-height: 1;
+    }
+
+    .kartu-info {
+      padding: 16px;
+    }
+
+    .kartu-nama {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.2rem;
+      color: #2d2d2d;
+      margin-bottom: 4px;
+    }
+
+    .kartu-desc {
+      font-size: 0.85rem;
+      color: #999;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .kartu-bawah {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .kartu-harga {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #ff6b35;
+    }
+
+    .tambah-btn {
+      background: #ff6b35;
+      color: white;
+      border: none;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      font-size: 1.3rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.15s, background 0.15s;
+      font-weight: 700;
+    }
+
+    .tambah-btn:hover {
+      background: #e85d2a;
+      transform: scale(1.15);
+    }
+
+    .badge-baru {
+      background: #22c55e;
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 50px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+
+    .badge-panas {
+      background: #ef4444;
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 50px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+
+    /* --- KERANJANG POPUP --- */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      display: none;
+      justify-content: center;
+      align-items: flex-end;
+      z-index: 100;
+    }
+
+    .overlay.tampil {
+      display: flex;
+      animation: fadeIn .2s;
+    }
+
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+    .keranjang-panel {
+      background: white;
+      width: 100%;
+      max-width: 480px;
+      border-radius: 24px 24px 0 0;
+      padding: 24px;
+      max-height: 70vh;
+      overflow-y: auto;
+      animation: slideUp .3s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100px); opacity: 0; }
+      to   { transform: translateY(0);     opacity: 1; }
+    }
+
+    .keranjang-judul {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.5rem;
+      color: #ff6b35;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .tutup-btn {
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: #999;
+    }
+
+    .item-keranjang {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #f3f0ed;
+    }
+
+    .item-emoji { font-size: 2rem; }
+
+    .item-nama {
+      flex: 1;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .item-harga {
+      font-weight: 800;
+      color: #ff6b35;
+      font-size: 0.9rem;
+    }
+
+    .hapus-btn {
+      background: none;
+      border: none;
+      color: #ccc;
+      font-size: 1.1rem;
+      cursor: pointer;
+      padding: 4px;
+      transition: color .2s;
+    }
+
+    .hapus-btn:hover { color: #ef4444; }
+
+    .kosong-msg {
+      text-align: center;
+      color: #bbb;
+      padding: 30px 0;
+      font-size: 1rem;
+    }
+
+    .total-bar {
+      margin-top: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 12px;
+      border-top: 2px dashed #f3ede6;
+    }
+
+    .total-label {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.2rem;
+      color: #2d2d2d;
+    }
+
+    .total-harga {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.5rem;
+      color: #ff6b35;
+    }
+
+    .pesan-btn {
+      width: 100%;
+      margin-top: 16px;
+      background: #ff6b35;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 14px;
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background .2s, transform .15s;
+    }
+
+    .pesan-btn:hover {
+      background: #e85d2a;
+      transform: scale(1.02);
+    }
+
+    /* --- NOTIF TOAST --- */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(60px);
+      background: #2d2d2d;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      opacity: 0;
+      transition: all .35s ease;
+      z-index: 200;
+      white-space: nowrap;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* --- FOOTER --- */
+    footer {
+      text-align: center;
+      padding: 24px;
+      background: #fff3ec;
+      color: #bbb;
+      font-size: 0.85rem;
+      border-top: 1px solid #f0e8e0;
+    }
+
+    /* --- BADGE JUMLAH --- */
+    .badge-jumlah {
+      display: inline-block;
+      background: white;
+      color: #ff6b35;
+      font-size: 0.75rem;
+      font-weight: 900;
+      min-width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 20px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">🍜 Warung Enak</div>
+    <button class="keranjang-btn" onclick="bukaKeranjang()">
+      🛒 Keranjang <span class="badge-jumlah" id="badge">0</span>
+    </button>
+  </header>
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1>Makan Enak, Harga Bersahabat! 😋</h1>
+    <p>Pesan sekarang, langsung diantar ke mejamu</p>
+  </div>
+
+  <!-- KATEGORI -->
+  <div class="kategori">
+    <button class="kat-btn aktif" onclick="filterMenu('semua', this)">🍽️ Semua</button>
+    <button class="kat-btn" onclick="filterMenu('makanan', this)">🍔 Makanan</button>
+    <button class="kat-btn" onclick="filterMenu('minuman', this)">🥤 Minuman</button>
+    <button class="kat-btn" onclick="filterMenu('snack', this)">🍟 Snack</button>
+    <button class="kat-btn" onclick="filterMenu('dessert', this)">🍰 Dessert</button>
+  </div>
+
+  <!-- JUDUL SECTION -->
+  <div class="judul-section">Menu Pilihan ✨</div>
+
+  <!-- MENU GRID -->
+  <div class="menu-grid" id="menuGrid"></div>
+
+  <!-- FOOTER -->
+  <footer>Dibuat dengan ❤️ menggunakan HTML, CSS & JavaScript</footer>
+
+  <!-- KERANJANG POPUP -->
+  <div class="overlay" id="overlay" onclick="tutupKeranjang(event)">
+    <div class="keranjang-panel">
+      <div class="keranjang-judul">
+        🛒 Keranjangmu
+        <button class="tutup-btn" onclick="tutupKeranjang()">✕</button>
+      </div>
+      <div id="isiKeranjang"><p class="kosong-msg">Belum ada pesanan 🥲</p></div>
+      <div class="total-bar" id="totalBar" style="display:none">
+        <span class="total-label">Total</span>
+        <span class="total-harga" id="totalHarga">Rp 0</span>
+      </div>
+      <button class="pesan-btn" id="pesanBtn" style="display:none" onclick="pesanSekarang()">
+        🚀 Pesan Sekarang
+      </button>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIF -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ===========================
+       JAVASCRIPT = Logika & Interaksi ⚡
+  =========================== -->
+  <script>
+
+    // ── DATA MENU ─────────────────────────────
+    // Array = kumpulan data dalam satu variabel
+    const daftarMenu = [
+      { id: 1, nama: "Nasi Goreng Spesial",  emoji: "🍳", harga: 25000, kategori: "makanan", desc: "Nasi goreng dengan telur, ayam & sayuran", badge: "panas" },
+      { id: 2, nama: "Mie Ayam Bakso",       emoji: "🍜", harga: 20000, kategori: "makanan", desc: "Mie kenyal dengan topping ayam & bakso", badge: null },
+      { id: 3, nama: "Burger Crispy",        emoji: "🍔", harga: 30000, kategori: "makanan", desc: "Daging crispy dengan saus spesial", badge: "baru" },
+      { id: 4, nama: "Ayam Geprek",          emoji: "🍗", harga: 22000, kategori: "makanan", desc: "Ayam krispy geprek sambal pedas", badge: "panas" },
+      { id: 5, nama: "Es Teh Manis",         emoji: "🧋", harga: 8000,  kategori: "minuman", desc: "Teh manis segar dengan es batu banyak", badge: null },
+      { id: 6, nama: "Jus Alpukat",          emoji: "🥑", harga: 18000, kategori: "minuman", desc: "Alpukat segar blend dengan susu coklat", badge: null },
+      { id: 7, nama: "Es Jeruk Peras",       emoji: "🍊", harga: 10000, kategori: "minuman", desc: "Jeruk segar diperas langsung", badge: "baru" },
+      { id: 8, nama: "Kentang Goreng",       emoji: "🍟", harga: 15000, kategori: "snack",   desc: "Kentang renyah dengan saus keju", badge: null },
+      { id: 9, nama: "Pisang Goreng Crispy", emoji: "🍌", harga: 12000, kategori: "snack",   desc: "Pisang goreng tepung super renyah", badge: null },
+      { id:10, nama: "Cireng Isi",           emoji: "🫓", harga: 10000, kategori: "snack",   desc: "Cireng renyah isi daging berbumbu", badge: "panas" },
+      { id:11, nama: "Es Krim Coklat",       emoji: "🍨", harga: 15000, kategori: "dessert", desc: "Es krim lembut rasa coklat premium", badge: null },
+      { id:12, nama: "Kue Lapis",            emoji: "🎂", harga: 18000, kategori: "dessert", desc: "Kue lapis tradisional warna-warni", badge: "baru" },
+    ];
+
+    // ── VARIABEL KERANJANG ────────────────────
+    let keranjang = [];  // array kosong untuk menyimpan pesanan
+    let kategoriAktif = "semua";
+
+    // ── FUNGSI: TAMPILKAN MENU ────────────────
+    function tampilkanMenu(kategori) {
+      const grid = document.getElementById("menuGrid");
+      grid.innerHTML = ""; // kosongkan dulu
+
+      // Filter menu berdasarkan kategori
+      const filtered = kategori === "semua"
+        ? daftarMenu
+        : daftarMenu.filter(item => item.kategori === kategori);
+
+      // Loop = ulang untuk setiap item
+      filtered.forEach(item => {
+        const badgeHtml = item.badge === "baru"
+          ? '<span class="badge-baru">BARU</span>'
+          : item.badge === "panas"
+          ? '<span class="badge-panas">🔥 HOT</span>'
+          : "";
+
+        // innerHTML = tulis HTML di dalam elemen
+        grid.innerHTML += `
+          <div class="kartu" onclick="tambahKeKeranjang(${item.id})">
+            <div class="kartu-gambar">${item.emoji}</div>
+            <div class="kartu-info">
+              <div class="kartu-nama">${item.nama} ${badgeHtml}</div>
+              <div class="kartu-desc">${item.desc}</div>
+              <div class="kartu-bawah">
+                <div class="kartu-harga">Rp ${item.harga.toLocaleString('id-ID')}</div>
+                <button class="tambah-btn" onclick="tambahKeKeranjang(${item.id}); event.stopPropagation()">+</button>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    // ── FUNGSI: FILTER MENU ───────────────────
+    function filterMenu(kategori, tombol) {
+      kategoriAktif = kategori;
+      tampilkanMenu(kategori);
+
+      // Ganti tombol aktif
+      document.querySelectorAll(".kat-btn").forEach(btn => btn.classList.remove("aktif"));
+      tombol.classList.add("aktif");
+    }
+
+    // ── FUNGSI: TAMBAH KE KERANJANG ───────────
+    function tambahKeKeranjang(id) {
+      // Cari item berdasarkan id
+      const item = daftarMenu.find(m => m.id === id);
+
+      // Cek apakah sudah ada di keranjang
+      const sudahAda = keranjang.find(k => k.id === id);
+
+      if (sudahAda) {
+        sudahAda.jumlah += 1;  // tambah jumlah
+      } else {
+        keranjang.push({ ...item, jumlah: 1 });  // tambah baru
+      }
+
+      perbaruiBadge();
+      tampilkanToast(`${item.emoji} ${item.nama} ditambahkan!`);
+    }
+
+    // ── FUNGSI: PERBARUI BADGE ────────────────
+    function perbaruiBadge() {
+      const total = keranjang.reduce((sum, k) => sum + k.jumlah, 0);
+      document.getElementById("badge").textContent = total;
+    }
+
+    // ── FUNGSI: BUKA KERANJANG ────────────────
+    function bukaKeranjang() {
+      renderKeranjang();
+      document.getElementById("overlay").classList.add("tampil");
+    }
+
+    // ── FUNGSI: TUTUP KERANJANG ───────────────
+    function tutupKeranjang(e) {
+      if (!e || e.target === document.getElementById("overlay")) {
+        document.getElementById("overlay").classList.remove("tampil");
+      }
+    }
+
+    // ── FUNGSI: RENDER ISI KERANJANG ──────────
+    function renderKeranjang() {
+      const isi = document.getElementById("isiKeranjang");
+      const totalBar = document.getElementById("totalBar");
+      const pesanBtn = document.getElementById("pesanBtn");
+
+      if (keranjang.length === 0) {
+        isi.innerHTML = '<p class="kosong-msg">Belum ada pesanan 🥲</p>';
+        totalBar.style.display = "none";
+        pesanBtn.style.display = "none";
+        return;
+      }
+
+      isi.innerHTML = "";
+      let total = 0;
+
+      keranjang.forEach(item => {
+        const subtotal = item.harga * item.jumlah;
+        total += subtotal;
+
+        isi.innerHTML += `
+          <div class="item-keranjang">
+            <span class="item-emoji">${item.emoji}</span>
+            <div class="item-nama">
+              ${item.nama}
+              <div style="color:#999;font-size:.8rem;font-weight:600">x${item.jumlah}</div>
+            </div>
+            <span class="item-harga">Rp ${subtotal.toLocaleString('id-ID')}</span>
+            <button class="hapus-btn" onclick="hapusItem(${item.id})">🗑</button>
+          </div>
+        `;
+      });
+
+      document.getElementById("totalHarga").textContent = "Rp " + total.toLocaleString('id-ID');
+      totalBar.style.display = "flex";
+      pesanBtn.style.display = "block";
+    }
+
+    // ── FUNGSI: HAPUS ITEM ────────────────────
+    function hapusItem(id) {
+      keranjang = keranjang.filter(k => k.id !== id);
+      perbaruiBadge();
+      renderKeranjang();
+    }
+
+    // ── FUNGSI: PESAN ─────────────────────────
+    function pesanSekarang() {
+      keranjang = [];
+      perbaruiBadge();
+      document.getElementById("overlay").classList.remove("tampil");
+      tampilkanToast("✅ Pesanan berhasil! Sedang diproses...");
+    }
+
+    // ── FUNGSI: TOAST NOTIFIKASI ──────────────
+    function tampilkanToast(pesan) {
+      const toast = document.getElementById("toast");
+      toast.textContent = pesan;
+      toast.classList.add("show");
+
+      // setTimeout = tunggu 2 detik lalu sembunyikan
+      setTimeout(() => toast.classList.remove("show"), 2000);
+    }
+
+    // ── JALANKAN SAAT HALAMAN SIAP ────────────
+    tampilkanMenu("semua");
+
+  </script>
+</body>
+</html>
